@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="0.235" tests="2" skipped="0" failures="0" errors="0">
+<testcase classname="Calculator functionality" name="Add two numbers" time="0.015">
+<system-out><![CDATA[
+Given I have numbers 2 and 3................................................passed
+When I add the numbers......................................................passed
+Then the result should be 5.................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Calculator functionality" name="Subtract two numbers" time="0.001">
+<system-out><![CDATA[
+Given I have numbers 10 and 4...............................................passed
+When I subtract the numbers.................................................passed
+Then the result should be 6.................................................passed
+]]></system-out>
+</testcase>
+</testsuite>
