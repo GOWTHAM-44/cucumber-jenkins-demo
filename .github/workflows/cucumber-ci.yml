@@ -23,20 +23,34 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Step 3: Build and run tests
-      - name: Build with Maven
+      # Step 3: Build and run tests (Cucumber + JUnit XML via Surefire)
+      - name: Build & Test
         run: mvn -B clean test
 
-      # Step 4: Generate Maven Surefire report
-      - name: Generate Surefire Report
+      # Step 4: Generate Maven Surefire HTML report
+      - name: Generate Surefire HTML report
         run: mvn -B surefire-report:report
 
-      # Step 5: Upload reports as artifacts
-      - name: Upload Cucumber and Maven reports
+      # --- Optional but useful: show failing tests directly on PRs ---
+      # - name: Publish test summary to PR (annotations)
+      #   if: always()
+      #   uses: EnricoMi/publish-unit-test-result-action@v2
+      #   with:
+      #     files: |
+      #       target/surefire-reports/*.xml
+      #       target/cucumber-reports/*.xml
+
+      # Step 5: Upload JUnit XML + HTML reports as artifacts
+      - name: Upload Test Reports (XML + HTML)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-reports
+          if-no-files-found: warn
+          retention-days: 14
           path: |
-            target/cucumber-reports/
-            target/site/surefire-report.html
-            target/surefire-reports/
+            target/surefire-reports/**/*.xml
+            target/cucumber-reports/**/*.xml
+            target/cucumber-reports/**/*
+            target/site/**/*
+``
